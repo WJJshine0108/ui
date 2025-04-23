@@ -1,0 +1,123 @@
+{
+	"pages": [{
+			"path": "pages/home/user/Home",
+			"style": {
+				"navigationBarTitleText": "用户首页"
+			}
+		},
+		{
+			"path": "pages/home/merchant1/Home",
+			"style": {
+				"navigationBarTitleText": "地接社商家首页"
+			}
+		},
+		{
+			"path": "pages/home/merchant2/Home",
+			"style": {
+				"navigationBarTitleText": "组团社商家首页"
+			}
+		},
+		{
+			"path": "pages/home/merchant3/Home",
+			"style": {
+				"navigationBarTitleText": "特色旅游服务商家首页"
+			}
+		},
+		{
+			"path": "pages/category/user/Category",
+			"style": {
+				"navigationBarTitleText": "分类（用户端）"
+			}
+		},
+		{
+			"path": "pages/category/merchant1/Category",
+			"style": {
+				"navigationBarTitleText": "分类（地接社商家）"
+			}
+		},
+		{
+			"path": "pages/category/merchant2/Category",
+			"style": {
+				"navigationBarTitleText": "分类（组团社商家）"
+			}
+		},
+		{
+			"path": "pages/category/merchant3/Category",
+			"style": {
+				"navigationBarTitleText": "分类（特色旅游商家）"
+			}
+		},
+		{
+			"path": "pages/itinerary/user/Itinerary",
+			"style": {
+				"navigationBarTitleText": "行程（用户端）"
+			}
+		},
+		{
+			"path": "pages/itinerary/merchant1/Itinerary",
+			"style": {
+				"navigationBarTitleText": "行程（地接社商家）"
+			}
+		},
+		{
+			"path": "pages/itinerary/merchant2/Itinerary",
+			"style": {
+				"navigationBarTitleText": "行程（组团社商家）"
+			}
+		},
+		{
+			"path": "pages/itinerary/merchant3/Itinerary",
+			"style": {
+				"navigationBarTitleText": "行程（特色旅游商家）"
+			}
+		},
+		{
+			"path": "pages/my/user/My",
+			"style": {
+				"navigationBarTitleText": "我的（用户端）"
+			}
+		},
+		{
+			"path": "pages/my/merchant1/My",
+			"style": {
+				"navigationBarTitleText": "我的（地接社商家）"
+			}
+		},
+		{
+			"path": "pages/my/merchant2/My",
+			"style": {
+				"navigationBarTitleText": "我的（组团社商家）"
+			}
+		},
+		{
+			"path": "pages/my/merchant3/My",
+			"style": {
+				"navigationBarTitleText": "我的（特色旅游商家）"
+			}
+		},
+		{
+			"path": "pages/user/Login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/identity/Select",
+			"style": {
+				"navigationBarTitleText": "选择身份"
+			}
+		},
+		{
+			"path": "pages/merchant/Register",
+			"style": {
+				"navigationBarTitleText": "商家注册"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "旅游团票",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
