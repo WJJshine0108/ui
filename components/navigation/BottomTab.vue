@@ -1,40 +1,45 @@
 <template>
-	<view class="bottom-tab">
-		<block v-for="(item, index) in currentTabList" :key="index">
-			<view class="tab-item" :class="{ active: selectedIndex === index }" @click="onTabClick(index)">
-				<!-- 自定义图标，需替换为实际图标路径 -->
-				<image :src="selectedIndex === index ? item.selectedIcon : item.icon" mode="widthFix"
-					class="tab-icon" />
-				<text class="tab-text">{{ item.text }}</text>
-			</view>
-		</block>
+	<view class="bottom-tab" v-show="shouldShowTab">
+		<view v-for="(item, index) in currentTabList" :key="index" class="tab-item"
+			:class="{ active: selectedIndex === index }" @click="switchTab(index, item)">
+			<image :src="`/static/icons/${selectedIndex === index ? item.selectedIcon : item.icon}.png`"
+				mode="aspectFit" class="tab-icon" />
+			<text class="tab-text">{{ item.text }}</text>
+		</view>
 	</view>
 </template>
 
 <script setup>
 	import {
-		useUserStore
-	} from '@/stores/userStore';
-	import {
-		tabBarConfig
-	} from '@/config/tabBar.js';
-	import {
 		ref,
 		computed
-	} from 'vue';
+	} from 'vue'
+	import {
+		useUserStore
+	} from '@/stores/userStore'
 
-	const userStore = useUserStore();
-	const selectedIndex = ref(0);
+	const userStore = useUserStore()
+	const selectedIndex = ref(0)
+	const currentPage = getCurrentPages().at(-1) || {
+		route: ''
+	}
+
+	// 获取当前用户类型对应的Tab列表
 	const currentTabList = computed(() =>
-		tabBarConfig[userStore.userType]?.list || tabBarConfig[1].list // 默认普通用户Tab
-	);
+		userStore.getTabBarConfig().then(config => config[userStore.userType].list)
+	)
 
-	const onTabClick = (index) => {
-		selectedIndex.value = index;
-		uni.navigateTo({
-			url: currentTabList.value[index].pagePath
-		});
-	};
+	// 判断是否显示TabBar（排除登录/注册等页面）
+	const shouldShowTab = computed(() => {
+		return !currentPage.route.includes('login') && !currentPage.route.includes('register')
+	})
+
+	const switchTab = (index, item) => {
+		selectedIndex.value = index
+		uni.switchTab({
+			url: `/${item.pagePath}`
+		})
+	}
 </script>
 
 <style scoped>
@@ -46,28 +51,7 @@
 		background-color: #fff;
 		border-top: 1px solid var(--uni-border-color);
 		padding: 10px 0;
-	}
-
-	.tab-item {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 8px 0;
-	}
-
-	.tab-icon {
-		width: 24px;
-		height: 24px;
-		margin-bottom: 4px;
-	}
-
-	.tab-text {
-		font-size: 12px;
-		color: var(--uni-text-color-grey);
-	}
-
-	.tab-item.active .tab-text {
-		color: var(--uni-color-primary);
+		z-index: 999;
+		/* 新增：确保导航栏在页面上方 */
 	}
 </style>

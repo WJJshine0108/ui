@@ -1,58 +1,31 @@
 <template>
-	<view class="home-container">
-		<text>商家3</text>
-		<IdentitySelector @selectIdentity="onIdentitySelect" />
+	<view class="merchant-home" v-if="userStore.hasPermission(2)">
+		<text>商家1端首页</text>
+		<button @click="userStore.setUserType(1)">返回用户端</button>
+	</view>
+	<view v-else>
+		<text>您没有权限访问此商家端</text>
+		<button @click="userStore.setUserType(1)">返回用户端</button>
 	</view>
 </template>
 
-<script>
+<script setup>
 	import {
 		useUserStore
-	} from '@/stores/userStore';
-	import IdentitySelector from '@/components/form/IdentitySelector.vue';
-	import {
-		ref
-	} from 'vue';
-	import {
-		tabBarConfig
-	} from '@/config/tabBar.js';
-	export default {
-		components: {
-			IdentitySelector
-		},
-		setup() {
-			const userStore = useUserStore();
-			const selectedIndex = ref(0);
+	} from '@/stores/userStore'
 
-			const onIdentitySelect = (type) => {
-				if (type >= 2 && !userStore.isMerchant) {
-					uni.showModal({
-						title: '权限提示',
-						content: '您需要注册成为商家才能访问',
-						success: (res) => {
-							if (res.confirm) uni.navigateTo({
-								url: '/pages/merchant/Register'
-							});
-						}
-					});
-				} else {
-					userStore.setUserType(type);
-					uni.switchTab({
-						url: '/'+tabBarConfig[type].list[0].pagePath
-					});
-				}
-			};
+	const userStore = useUserStore()
 
-			return {
-				selectedIndex,
-				onIdentitySelect
-			};
+	// 页面加载时校验权限
+	onLoad(() => {
+		if (!userStore.hasPermission(2)) {
+			uni.showToast({
+				title: '权限不足',
+				icon: 'none'
+			})
+			uni.switchTab({
+				url: '/pages/my/user/My'
+			})
 		}
-	};
+	})
 </script>
-
-<style scoped>
-	.home-container {
-		padding: 20px;
-	}
-</style>
