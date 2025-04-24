@@ -1,19 +1,37 @@
 <template>
-	<view class="my-page">
-		<text>我的（用户端）</text>
-		<IdentitySelector /> <!-- 身份选择组件 -->
-		<BottomTab></BottomTab>
+	<view class="wechat-page">
+		<!-- 导航栏 -->
+		<Navbar />
+
+		<!-- 空白内容区 -->
+		<view class="content-container">
+			<text class="placeholder-text">用户我的</text>
+		</view>
+
+		<!-- 底部导航 -->
+		<BottomTab />
 	</view>
 </template>
 
 <script setup>
-	import BottomTab from '@/components/navigation/BottomTab.vue';
-	import IdentitySelector from '@/components/form/IdentitySelector.vue';
+	import Navbar from '@/components/navigation/Navbar.vue'
+	import BottomTab from '@/components/navigation/BottomTab.vue'
 </script>
 
 <style scoped>
-	.my-page {
-		padding: 20px;
-		min-height: 100vh;
+	.wechat-page {
+		background: #ffffff;
+		height: 100vh;
+	}
+
+	.content-container {
+		display: flex;
+		justify-content: center;
+		padding-top: 100px;
+	}
+
+	.placeholder-text {
+		color: rgba(0, 0, 0, 0.5);
+		font-size: 24px;
 	}
 </style>

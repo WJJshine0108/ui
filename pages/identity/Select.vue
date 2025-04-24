@@ -11,7 +11,7 @@
 	} from '@/stores/userStore';
 	import {
 		tabBarConfig
-	} from '@/config/tabBar.js'; // 新增导入
+	} from '@/config/tabBar.js';
 
 	export default {
 		components: {
@@ -22,9 +22,12 @@
 				const userStore = useUserStore();
 				if (type === 1 || userStore.isMerchant) {
 					userStore.setUserType(type);
-					uni.switchTab({
-						url: '/'+tabBarConfig[type].list[0].pagePath // 修正后路径
-					});
+					const firstPage = tabBarConfig[type]?.list[0];
+					if (firstPage) {
+						uni.switchTab({
+							url: `/${firstPage.pagePath}`
+						});
+					}
 				} else {
 					uni.showModal({
 						title: '提示',

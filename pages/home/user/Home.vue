@@ -5,7 +5,7 @@
 
 		<!-- 空白内容区 -->
 		<view class="content-container">
-			<text class="placeholder-text">首页</text>
+			<text class="placeholder-text">用户首页</text>
 		</view>
 
 		<!-- 底部导航 -->

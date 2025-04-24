@@ -1,7 +1,8 @@
 <template>
 	<view class="tabbar" :style="{ paddingBottom: safeAreaBottom + 'px' }">
 		<view v-for="(item, index) in tabs" :key="index" class="tab-item" @click="switchTab(item)">
-			<image :src="selectedIndex === index ? item.selectedIcon : item.icon" class="tab-icon" />
+			<image :src="selectedIndex === index ? getIconPath(item.selectedIcon) : getIconPath(item.icon)"
+				class="tab-icon" />
 			<text :class="['text', { active: selectedIndex === index }]">
 				{{ item.text }}
 			</text>
@@ -14,31 +15,33 @@
 		ref,
 		computed
 	} from 'vue';
+	import {
+		useUserStore
+	} from '@/stores/userStore';
+	import {
+		tabBarConfig
+	} from '@/config/tabBar.js';
 
 	// 微信小程序安全区域适配
 	const safeAreaBottom = ref(uni.getSystemInfoSync().safeAreaInsets.bottom || 0);
+	const userStore = useUserStore();
 
-	const tabs = ref([{
-			text: '首页',
-			icon: '/static/tab_home.png',
-			selectedIcon: '/static/tab_home_active.png',
-			pagePath: '/pages/home/user/Home'
-		},
-		{
-			text: '分类',
-			icon: '/static/tab_category.png',
-			selectedIcon: '/static/tab_category_active.png',
-			pagePath: '/pages/category/user/Category'
-		}
-	]);
+	const tabs = computed(() => {
+		const userType = userStore.userType || 1; // 默认用户类型为1
+		return tabBarConfig[userType]?.list || [];
+	});
 
 	const selectedIndex = ref(0);
+
+	const getIconPath = (iconName) => {
+		return `/static/${iconName}.png`;
+	};
 
 	const switchTab = (item) => {
 		const index = tabs.value.findIndex(tab => tab.pagePath === item.pagePath);
 		selectedIndex.value = index;
 		uni.redirectTo({
-			url: item.pagePath
+			url: `/${item.pagePath}`
 		});
 	};
 </script>

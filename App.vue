@@ -2,7 +2,7 @@
 	<view>
 		<Navbar :title="getCurrentTitle" />
 		<router-view />
-		<BottomTab v-if="isTabBarPage" />
+		<BottomTab />
 	</view>
 </template>
 
@@ -17,18 +17,6 @@
 	} from 'vue';
 
 	const userStore = useUserStore();
-
-	// 判断是否显示底部导航
-	const isTabBarPage = computed(() => {
-		const pages = getCurrentPages();
-		if (!pages.length) return false;
-		const currentPage = pages[pages.length - 1];
-		const route = currentPage.route || currentPage.$page?.fullPath;
-		return route?.startsWith('pages/home/') ||
-			route?.startsWith('pages/category/') ||
-			route?.startsWith('pages/itinerary/') ||
-			route?.startsWith('pages/my/');
-	});
 
 	// 动态获取页面标题
 	const getCurrentTitle = computed(() => {

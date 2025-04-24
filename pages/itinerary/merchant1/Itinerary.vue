@@ -1,16 +1,37 @@
 <template>
-	<view class="itinerary-container">
-		<text>行程页面商家1</text>
+	<view class="wechat-page">
+		<!-- 导航栏 -->
+		<Navbar />
+
+		<!-- 空白内容区 -->
+		<view class="content-container">
+			<text class="placeholder-text">商家1行程</text>
+		</view>
+
+		<!-- 底部导航 -->
+		<BottomTab />
 	</view>
-	<BottomTab></BottomTab>
 </template>
 
 <script setup>
-	import BottomTab from '@/components/navigation/BottomTab.vue';
+	import Navbar from '@/components/navigation/Navbar.vue'
+	import BottomTab from '@/components/navigation/BottomTab.vue'
 </script>
 
 <style scoped>
-	.itinerary-container {
-		padding: 20px;
+	.wechat-page {
+		background: #ffffff;
+		height: 100vh;
+	}
+
+	.content-container {
+		display: flex;
+		justify-content: center;
+		padding-top: 100px;
+	}
+
+	.placeholder-text {
+		color: rgba(0, 0, 0, 0.5);
+		font-size: 24px;
 	}
 </style>
