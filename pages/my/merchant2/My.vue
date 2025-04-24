@@ -1,19 +1,18 @@
 <template>
 	<view class="my-container">
-		<text>商家2</text>
+		<text>商家2个人中心</text>
+		<BottomTab></BottomTab>
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {};
-		}
-	};
+<script setup>
+	import BottomTab from '@/components/navigation/BottomTab.vue';
+	// 业务逻辑
 </script>
 
 <style scoped>
 	.my-container {
 		padding: 20px;
+		min-height: 100vh;
 	}
 </style>

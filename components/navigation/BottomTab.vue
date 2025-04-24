@@ -1,10 +1,10 @@
 <template>
-	<view class="bottom-tab" v-show="shouldShowTab">
-		<view v-for="(item, index) in currentTabList" :key="index" class="tab-item"
-			:class="{ active: selectedIndex === index }" @click="switchTab(index, item)">
-			<image :src="`/static/icons/${selectedIndex === index ? item.selectedIcon : item.icon}.png`"
-				mode="aspectFit" class="tab-icon" />
-			<text class="tab-text">{{ item.text }}</text>
+	<view class="tabbar" :style="{ paddingBottom: safeAreaBottom + 'px' }">
+		<view v-for="(item, index) in tabs" :key="index" class="tab-item" @click="switchTab(item)">
+			<image :src="selectedIndex === index ? item.selectedIcon : item.icon" class="tab-icon" />
+			<text :class="['text', { active: selectedIndex === index }]">
+				{{ item.text }}
+			</text>
 		</view>
 	</view>
 </template>
@@ -13,45 +13,69 @@
 	import {
 		ref,
 		computed
-	} from 'vue'
-	import {
-		useUserStore
-	} from '@/stores/userStore'
+	} from 'vue';
 
-	const userStore = useUserStore()
-	const selectedIndex = ref(0)
-	const currentPage = getCurrentPages().at(-1) || {
-		route: ''
-	}
+	// 微信小程序安全区域适配
+	const safeAreaBottom = ref(uni.getSystemInfoSync().safeAreaInsets.bottom || 0);
 
-	// 获取当前用户类型对应的Tab列表
-	const currentTabList = computed(() =>
-		userStore.getTabBarConfig().then(config => config[userStore.userType].list)
-	)
+	const tabs = ref([{
+			text: '首页',
+			icon: '/static/tab_home.png',
+			selectedIcon: '/static/tab_home_active.png',
+			pagePath: '/pages/home/user/Home'
+		},
+		{
+			text: '分类',
+			icon: '/static/tab_category.png',
+			selectedIcon: '/static/tab_category_active.png',
+			pagePath: '/pages/category/user/Category'
+		}
+	]);
 
-	// 判断是否显示TabBar（排除登录/注册等页面）
-	const shouldShowTab = computed(() => {
-		return !currentPage.route.includes('login') && !currentPage.route.includes('register')
-	})
+	const selectedIndex = ref(0);
 
-	const switchTab = (index, item) => {
-		selectedIndex.value = index
-		uni.switchTab({
-			url: `/${item.pagePath}`
-		})
-	}
+	const switchTab = (item) => {
+		const index = tabs.value.findIndex(tab => tab.pagePath === item.pagePath);
+		selectedIndex.value = index;
+		uni.redirectTo({
+			url: item.pagePath
+		});
+	};
 </script>
 
 <style scoped>
-	.bottom-tab {
+	.tabbar {
 		position: fixed;
-		left: 0;
 		bottom: 0;
+		left: 0;
 		right: 0;
-		background-color: #fff;
-		border-top: 1px solid var(--uni-border-color);
-		padding: 10px 0;
-		z-index: 999;
-		/* 新增：确保导航栏在页面上方 */
+		height: 50px;
+		background: #ffffff;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.05);
+	}
+
+	.tab-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.tab-icon {
+		width: 24px;
+		height: 24px;
+		margin-bottom: 2px;
+	}
+
+	.text {
+		font-size: 10px;
+		color: #666;
+	}
+
+	.text.active {
+		color: #007AFF;
+		font-weight: 500;
 	}
 </style>

@@ -1,28 +1,18 @@
-import App from './App.vue'
+// main.js
 import {
 	createSSRApp
-} from 'vue'
+} from 'vue';
 import {
 	createPinia
-} from 'pinia'
+} from 'pinia';
+import App from './App.vue';
 
 export function createApp() {
-	const pinia = createPinia()
-	const app = createSSRApp(App)
-	app.use(pinia)
+	const pinia = createPinia();
+	const app = createSSRApp(App);
+	app.use(pinia);
 	return {
 		app,
 		pinia
-	}
+	};
 }
-
-// #ifndef VUE3
-import Vue from 'vue'
-Vue.config.productionTip = false
-const pinia = createPinia()
-const app = new Vue({
-	...App,
-	pinia
-})
-app.$mount()
-// #endif

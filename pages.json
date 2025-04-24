@@ -1,8 +1,15 @@
 {
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^bottom-tab": "@/components/navigation/BottomTab.vue"
+		}
+	},
 	"pages": [{
 			"path": "pages/home/user/Home",
 			"style": {
-				"navigationBarTitleText": "用户首页"
+				"navigationBarTitleText": "用户首页",
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -118,6 +125,17 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "旅游团票",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"safearea": {
+				"bottom": {
+					"offset": "none"
+				} // 禁用安全区域占位
+			}
+		},
+		"mp-weixin": {
+			"navigationStyle": "custom", // 自定义导航栏
+			"backgroundColor": "#F8F8F8"
+		}
 	}
 }

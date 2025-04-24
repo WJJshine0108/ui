@@ -2,14 +2,11 @@
 	<view class="itinerary-container">
 		<text>行程页面商家2</text>
 	</view>
+	<BottomTab></BottomTab>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {};
-		}
-	};
+<script setup>
+	import BottomTab from '@/components/navigation/BottomTab.vue';
 </script>
 
 <style scoped>
